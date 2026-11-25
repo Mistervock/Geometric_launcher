@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ru" data-theme="vhs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Geometric Hub</title>
+  <meta name="description" content="Персональная коллекция игр Mistervock: Geometric Hub.">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Тема выставляется до отрисовки, чтобы страница не мигала другим оформлением.
+    (function () {
+      try {
+        var saved = localStorage.getItem("geometric-hub-theme");
+        if (saved === "dark" || saved === "light" || saved === "vhs") {
+          document.documentElement.setAttribute("data-theme", saved);
+        }
+      } catch (e) { /* localStorage недоступен: остаётся тема по умолчанию */ }
+    })();
+  </script>
+</head>
+<body>
+  <div class="app">
+
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">
+          <span class="logo-sq"></span>
+          <span class="logo-tri"></span>
+          <span class="logo-dot"></span>
+        </span>
+        <div>
+          <div class="brand-name">Geometric Hub</div>
+          <div class="muted">v0.1</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Разделы">
+        <a class="nav-link" href="#home" data-page="home">Home</a>
+        <a class="nav-link" href="#library" data-page="library">Game Library</a>
+        <a class="nav-link" href="#recent" data-page="recent">Recently Played</a>
+        <a class="nav-link" href="#favorites" data-page="favorites">Favorites</a>
+        <a class="nav-link" href="#settings" data-page="settings">Settings</a>
+        <a class="nav-link" href="#about" data-page="about">About</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+
+      <section id="home" class="page" hidden>
+        <header class="page-header">
+          <h1 class="title">Добро пожаловать</h1>
+          <p class="subtitle">Ваша личная коллекция игр в одном месте</p>
+        </header>
+
+        <div class="hero">
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-value">1</div>
+              <div class="muted">Обнаружено игр</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">1</div>
+              <div class="muted">Готово к запуску</div>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="#library">Открыть библиотеку</a>
+        </div>
+
+        <h2 class="section">Избранное</h2>
+        <div class="grid">
+          <a class="card game-card" data-exe="GeometryCatcher.exe" href="https://mistervock-official.itch.io/geometry-catcher" target="_blank" rel="noopener noreferrer">
+            <div class="cover"><img src="assets/geometry-catcher.png" alt="Обложка Geometry Catcher" loading="lazy"></div>
+            <div class="card-title">Geometry Catcher</div>
+            <div class="status">Открыть на itch.io</div>
+            <span class="play">PLAY</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="library" class="page" hidden>
+        <header class="page-header">
+          <h1 class="title">Game Library</h1>
+          <p class="subtitle">Все игры Mistervock</p>
+        </header>
+        <div class="grid">
+          <a class="card game-card" data-exe="GeometryCatcher.exe" href="https://mistervock-official.itch.io/geometry-catcher" target="_blank" rel="noopener noreferrer">
+            <div class="cover"><img src="assets/geometry-catcher.png" alt="Обложка Geometry Catcher" loading="lazy"></div>
+            <div class="card-title">Geometry Catcher</div>
+            <div class="status">Открыть на itch.io</div>
+            <span class="play">PLAY</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="recent" class="page" hidden>
+        <header class="page-header">
+          <h1 class="title">Recently Played</h1>
+          <p class="subtitle">Игры, которые вы запускали недавно</p>
+        </header>
+        <p class="empty">В веб-версии история запусков не сохраняется. Она есть в desktop-версии Geometric Hub.</p>
+      </section>
+
+      <section id="favorites" class="page" hidden>
+        <header class="page-header">
+          <h1 class="title">Favorites</h1>
+          <p class="subtitle">Отмеченные игры</p>
+        </header>
+        <div class="grid">
+          <a class="card game-card" data-exe="GeometryCatcher.exe" href="https://mistervock-official.itch.io/geometry-catcher" target="_blank" rel="noopener noreferrer">
+            <div class="cover"><img src="assets/geometry-catcher.png" alt="Обложка Geometry Catcher" loading="lazy"></div>
+            <div class="card-title">Geometry Catcher</div>
+            <div class="status">Открыть на itch.io</div>
+            <span class="play">PLAY</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="settings" class="page" hidden>
+        <header class="page-header">
+          <h1 class="title">Settings</h1>
+          <p class="subtitle">Оформление Geometric Hub</p>
+        </header>
+        <div class="card form-card">
+          <label class="field">
+            <span>Тема оформления</span>
+            <select id="theme-select">
+              <option value="dark">Тёмная</option>
+              <option value="light">Светлая</option>
+              <option value="vhs">VHS</option>
+            </select>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="show-log">
+            <span>Показывать вывод игры в консоли при запуске</span>
+          </label>
+          <p class="muted">Выбор сохраняется в этом браузере.</p>
+        </div>
+      </section>
+
+      <section id="about" class="page" hidden>
+        <header class="page-header">
+          <h1 class="title">About</h1>
+          <p class="subtitle">Геометрический хаб для ваших игр</p>
+        </header>
+        <div class="card form-card">
+          <p>Geometric Hub, версия 0.1</p>
+          <p>Персональный хаб игр Mistervock. Игры открываются на itch.io.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="console" id="console" hidden>
+    <div class="console-window" role="dialog" aria-modal="true" aria-labelledby="console-bar">
+      <div class="console-bar" id="console-bar">Geometric Hub: консоль запуска</div>
+      <pre class="console-output" id="console-output" aria-live="polite"></pre>
+      <div class="console-footer">
+        <span class="console-hint">Демонстрационный режим: браузер не запускает exe, лог условный.</span>
+        <a class="btn console-link" id="console-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть на itch.io</a>
+        <button class="btn" id="console-close" type="button">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

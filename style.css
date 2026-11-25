@@ -1,0 +1,521 @@
+/* Geometric Hub: темы и оформление. Цвета совпадают с палитрами desktop-версии (ui/theme.py). */
+
+:root {
+  --radius-card: 14px;
+  --radius-btn: 10px;
+  --ui-font: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --warn: #E5A93B;
+  --error: #E5534B;
+}
+
+/* ----- темы ----- */
+
+[data-theme="dark"] {
+  --bg: #0E1014;
+  --surface: #171A21;
+  --surface-hover: #20242E;
+  --sidebar: #12151B;
+  --border: #262B36;
+  --accent: #4FD1C5;
+  --accent-text: #0E1014;
+  --text: #E6E8EE;
+  --muted: #8A90A0;
+  --font: var(--ui-font);
+  --scan-opacity: 0;
+}
+
+[data-theme="light"] {
+  --bg: #F3F4F7;
+  --surface: #FFFFFF;
+  --surface-hover: #EEF0F5;
+  --sidebar: #E8EAF0;
+  --border: #D5D9E2;
+  --accent: #0E9F8E;
+  --accent-text: #FFFFFF;
+  --text: #1A1D24;
+  --muted: #6B7280;
+  --font: var(--ui-font);
+  --scan-opacity: 0;
+}
+
+[data-theme="vhs"] {
+  --bg: #0D0A1B;
+  --surface: #18122E;
+  --surface-hover: #241A42;
+  --sidebar: #0A0716;
+  --border: #4A2F7A;
+  --accent: #FF4FD8;
+  --accent-text: #0D0A1B;
+  --text: #E8F8FF;
+  --muted: #9A8FD0;
+  --font: Consolas, "Courier New", monospace;
+  --scan-opacity: 1;
+}
+
+/* ----- база ----- */
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; min-height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+[hidden] { display: none !important; }
+
+/* Линии старого VHS-экрана поверх страницы. Видны только в теме VHS. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px);
+  opacity: var(--scan-opacity);
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ----- боковая панель ----- */
+
+.sidebar {
+  flex: 0 0 220px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 20px 16px;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.brand-name { font-size: 1.05rem; font-weight: 700; }
+
+.logo {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+}
+
+.logo-sq, .logo-tri, .logo-dot { position: absolute; }
+
+.logo-sq {
+  left: 0;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: #4FD1C5;
+}
+
+.logo-tri {
+  right: 0;
+  top: 0;
+  width: 13px;
+  height: 15px;
+  background: #F6AD55;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.logo-dot {
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #7C83FD;
+}
+
+.nav { display: flex; flex-direction: column; gap: 6px; }
+
+.nav-link {
+  display: block;
+  padding: 10px 14px;
+  border-radius: var(--radius-btn);
+  color: var(--muted);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.nav-link.active {
+  background: var(--surface);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ----- содержимое ----- */
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 28px 32px;
+  animation: fade-in 0.22s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+.page-header { margin-bottom: 22px; }
+
+.title {
+  margin: 0 0 4px;
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+
+.subtitle, .muted { color: var(--muted); margin: 0; }
+
+.section {
+  margin: 28px 0 14px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.empty { color: var(--muted); }
+
+/* ----- приветствие и статистика ----- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+/* Геометрические фигуры в углу приветствия */
+.hero::before {
+  content: "";
+  position: absolute;
+  right: -30px;
+  top: -40px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.18;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  right: 110px;
+  bottom: -20px;
+  width: 90px;
+  height: 90px;
+  background: #F6AD55;
+  opacity: 0.22;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.stats {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  min-width: 180px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.stat-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ----- кнопки ----- */
+
+.btn {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  background: var(--surface-hover);
+  color: var(--text);
+  text-decoration: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.btn:hover { border-color: var(--accent); }
+
+.btn-primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+/* ----- карточки игр ----- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 260px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.game-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.game-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.cover {
+  height: 140px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000;
+}
+
+.cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.status {
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.play {
+  display: block;
+  margin-top: auto;
+  padding: 8px 14px;
+  border-radius: var(--radius-btn);
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ----- настройки и «О программе» ----- */
+
+.form-card {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px;
+}
+
+.form-card p { margin: 0; }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  max-width: 260px;
+}
+
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* VHS-акценты: свечение заголовков */
+[data-theme="vhs"] .title,
+[data-theme="vhs"] .brand-name {
+  text-shadow: 0 0 10px rgba(255, 79, 216, 0.45);
+}
+
+[data-theme="vhs"] .game-card:hover {
+  box-shadow: 0 0 18px rgba(255, 79, 216, 0.35);
+}
+
+/* ----- узкий экран ----- */
+
+@media (max-width: 720px) {
+  .app { flex-direction: column; }
+
+  .sidebar {
+    position: static;
+    flex: none;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .nav-link { padding: 8px 10px; font-size: 0.9rem; }
+
+  .content { padding: 20px 16px; }
+}
+
+/* ----- консоль запуска (демонстрационная) ----- */
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.console {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.console-window {
+  display: flex;
+  flex-direction: column;
+  width: min(760px, 100%);
+  height: min(460px, 100%);
+  overflow: hidden;
+  background: #050805;
+  border: 1px solid #1F4D2D;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(124, 255, 155, 0.15);
+  font-family: Consolas, "Courier New", monospace;
+  color: #7CFF9B;
+}
+
+.console-bar {
+  padding: 8px 14px;
+  background: #0B1A10;
+  border-bottom: 1px solid #1F4D2D;
+  color: #4A8F5C;
+  font-size: 0.9rem;
+}
+
+.console-output {
+  flex: 1;
+  margin: 0;
+  padding: 12px 14px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #7CFF9B;
+}
+
+.console-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #0B1A10;
+  border-top: 1px solid #1F4D2D;
+}
+
+.console-hint {
+  flex: 1;
+  color: #4A8F5C;
+  font-size: 0.85rem;
+}
+
+.console .btn {
+  background: #0F1F14;
+  border-color: #1F4D2D;
+  color: #7CFF9B;
+  font-family: inherit;
+}
+
+.console .btn:hover,
+.console .btn:focus-visible {
+  border-color: #7CFF9B;
+  outline: none;
+}
+
+.console .console-link {
+  background: #7CFF9B;
+  border-color: transparent;
+  color: #050805;
+  font-weight: 600;
+}
